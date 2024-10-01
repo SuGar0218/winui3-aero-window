@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AeroLike (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AeroLike (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
