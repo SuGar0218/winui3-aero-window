@@ -5,11 +5,21 @@
   </PropertyGroup>
   <PropertyGroup>
     <ActiveDebugProfile>AeroLike (Unpackaged)</ActiveDebugProfile>
+    <_LastSelectedProfileId>E:\C#\WinUI3\AeroLike\Properties\PublishProfiles\win-x64.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Page Update="AeroResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="AeroCaptionButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="LuminousTextBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <None Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </None>

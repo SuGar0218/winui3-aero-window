@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="AeroLike.LuminousTextBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AeroLike"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:community="using:CommunityToolkit.WinUI.UI"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Border x:Name="castTarget" />
+        <TextBlock x:Name="textBlock">
+            <community:Effects.Shadow>
+                <community:AttachedDropShadow
+                    Color="White"
+                    BlurRadius="16"
+                    CastTo="{x:Bind castTarget}" />
+            </community:Effects.Shadow>
+        </TextBlock>
+    </Grid>
+</UserControl>

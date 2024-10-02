@@ -12,7 +12,7 @@ namespace AeroLike;
 public sealed partial class MainWindow : Window {
     public MainWindow() {
         InitializeComponent();
-        Title = "Aero-like Glass";
+        Title = "Aero Glass Window ±êÌâÀ¸ÎÄ×Ö";
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(draggable);
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Collapsed;
@@ -44,11 +44,11 @@ public sealed partial class MainWindow : Window {
             }
             if (args.DidSizeChange) {
                 if (presenter?.State == OverlappedPresenterState.Maximized) {
-                    maximizeButtonGrid.Visibility = Visibility.Collapsed;
-                    restoreButtonGrid.Visibility = Visibility.Visible;
+                    maximizeButton.Visibility = Visibility.Collapsed;
+                    restoreButton.Visibility = Visibility.Visible;
                 } else if (presenter?.State == OverlappedPresenterState.Restored) {
-                    restoreButtonGrid.Visibility = Visibility.Collapsed;
-                    maximizeButtonGrid.Visibility = Visibility.Visible;
+                    restoreButton.Visibility = Visibility.Collapsed;
+                    maximizeButton.Visibility = Visibility.Visible;
                 }
             }
         };
@@ -72,6 +72,10 @@ public sealed partial class MainWindow : Window {
         OffsetX = 0, OffsetY = 0
     };
 
+    private void Minimize() => presenter.Minimize();
+    private void Maximize() => presenter.Maximize();
+    private void Restore() => presenter?.Restore();
+
     private void Dispose() {
         backdropController.Dispose();
     }
@@ -79,152 +83,156 @@ public sealed partial class MainWindow : Window {
     private void FocusChanged(object _, WindowActivatedEventArgs args) {
         if (args.WindowActivationState == WindowActivationState.Deactivated) { // lost focus
             accentColor.Visibility = Visibility.Collapsed;
-            //aeroReflection.Visibility = Visibility.Collapsed;
             aeroCornerReflection.Opacity = 0.3;
+            minimizeButton.LoseFocus();
+            maximizeButton.LoseFocus();
+            closeButton.LoseFocus();
 
-            minimizeButton.Visibility = Visibility.Collapsed;
-            minimizeButtonFocusLost.Visibility = Visibility.Visible;
+            //minimizeButton.Visibility = Visibility.Collapsed;
+            //minimizeButtonFocusLost.Visibility = Visibility.Visible;
 
-            maximizeButton.Visibility = Visibility.Collapsed;
-            maximizeButtonFocusLost.Visibility = Visibility.Visible;
+            //maximizeButton.Visibility = Visibility.Collapsed;
+            //maximizeButtonFocusLost.Visibility = Visibility.Visible;
 
-            closeButton.Visibility = Visibility.Collapsed;
-            closeButtonFocusLost.Visibility = Visibility.Visible;
+            //closeButton.Visibility = Visibility.Collapsed;
+            //closeButtonFocusLost.Visibility = Visibility.Visible;
         } else { // engage focus
             accentColor.Visibility = Visibility.Visible;
-            //aeroReflection.Visibility = Visibility.Visible;
             aeroCornerReflection.Opacity = 0.5;
+            minimizeButton.GetFocus();
+            maximizeButton.GetFocus();
+            closeButton.GetFocus();
 
-            minimizeButton.Visibility = Visibility.Visible;
-            minimizeButtonFocusLost.Visibility = Visibility.Collapsed;
+            //minimizeButton.Visibility = Visibility.Visible;
+            //minimizeButtonFocusLost.Visibility = Visibility.Collapsed;
 
-            maximizeButton.Visibility = Visibility.Visible;
-            maximizeButtonFocusLost.Visibility = Visibility.Collapsed;
+            //maximizeButton.Visibility = Visibility.Visible;
+            //maximizeButtonFocusLost.Visibility = Visibility.Collapsed;
 
-            closeButton.Visibility = Visibility.Visible;
-            closeButtonFocusLost.Visibility = Visibility.Collapsed;
+            //closeButton.Visibility = Visibility.Visible;
+            //closeButtonFocusLost.Visibility = Visibility.Collapsed;
         }
     }
 
-    private void CloseButtonPointerEntered(object sender, PointerRoutedEventArgs e) {
-        closeButtonHover.Visibility = Visibility.Visible;
-        closeButtonLight.Visibility = Visibility.Visible;
-    }
+    //private void CloseButtonPointerEntered(object sender, PointerRoutedEventArgs e) {
+    //    closeButtonHover.Visibility = Visibility.Visible;
+    //    closeButtonLight.Visibility = Visibility.Visible;
+    //}
 
-    private void CloseButtonPointerExited(object sender, PointerRoutedEventArgs e) {
-        closeButtonHover.Visibility = Visibility.Collapsed;
-        closeButtonLight.Visibility = Visibility.Collapsed;
-        closeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void CloseButtonPointerExited(object sender, PointerRoutedEventArgs e) {
+    //    closeButtonHover.Visibility = Visibility.Collapsed;
+    //    closeButtonLight.Visibility = Visibility.Collapsed;
+    //    closeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void CloseButtonPointerPressed(object sender, PointerRoutedEventArgs e) {
-        closeButtonPressed.Visibility = Visibility.Visible;
-    }
+    //private void CloseButtonPointerPressed(object sender, PointerRoutedEventArgs e) {
+    //    closeButtonPressed.Visibility = Visibility.Visible;
+    //}
 
-    private void ClosePointerReleased(object sender, PointerRoutedEventArgs e) {
-        closeButtonPressed.Visibility = Visibility.Collapsed;
-        Close();
-    }
+    //private void ClosePointerReleased(object sender, PointerRoutedEventArgs e) {
+    //    closeButtonPressed.Visibility = Visibility.Collapsed;
+    //    Close();
+    //}
 
-    private void ClosePointerCanceled(object sender, PointerRoutedEventArgs e) {
-        closeButtonHover.Visibility = Visibility.Collapsed;
-        closeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void ClosePointerCanceled(object sender, PointerRoutedEventArgs e) {
+    //    closeButtonHover.Visibility = Visibility.Collapsed;
+    //    closeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void ClosePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
-        closeButtonHover.Visibility = Visibility.Collapsed;
-        closeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void ClosePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
+    //    closeButtonHover.Visibility = Visibility.Collapsed;
+    //    closeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void MaximizePointerEntered(object sender, PointerRoutedEventArgs e) {
-        maximizeButtonHover.Visibility = Visibility.Visible;
-        maximizeButtonLight.Visibility = Visibility.Visible;
-    }
+    //private void MaximizePointerEntered(object sender, PointerRoutedEventArgs e) {
+    //    maximizeButtonHover.Visibility = Visibility.Visible;
+    //    maximizeButtonLight.Visibility = Visibility.Visible;
+    //}
 
-    private void MaximizePointerExited(object sender, PointerRoutedEventArgs e) {
-        maximizeButtonHover.Visibility = Visibility.Collapsed;
-        maximizeButtonLight.Visibility = Visibility.Collapsed;
-        maximizeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void MaximizePointerExited(object sender, PointerRoutedEventArgs e) {
+    //    maximizeButtonHover.Visibility = Visibility.Collapsed;
+    //    maximizeButtonLight.Visibility = Visibility.Collapsed;
+    //    maximizeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void MaximizePointerPressed(object sender, PointerRoutedEventArgs e) {
-        maximizeButtonPressed.Visibility = Visibility.Visible;
-    }
+    //private void MaximizePointerPressed(object sender, PointerRoutedEventArgs e) {
+    //    maximizeButtonPressed.Visibility = Visibility.Visible;
+    //}
 
-    private void MaximizePointerReleased(object sender, PointerRoutedEventArgs e) {
-        maximizeButtonPressed.Visibility = Visibility.Collapsed;
-        presenter.Maximize();
-    }
+    //private void MaximizePointerReleased(object sender, PointerRoutedEventArgs e) {
+    //    maximizeButtonPressed.Visibility = Visibility.Collapsed;
+    //    presenter.Maximize();
+    //}
 
-    private void MaximizePointerCanceled(object sender, PointerRoutedEventArgs e) {
-        maximizeButtonHover.Visibility = Visibility.Collapsed;
-        maximizeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void MaximizePointerCanceled(object sender, PointerRoutedEventArgs e) {
+    //    maximizeButtonHover.Visibility = Visibility.Collapsed;
+    //    maximizeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void MaximizePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
-        maximizeButtonHover.Visibility = Visibility.Collapsed;
-        maximizeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void MaximizePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
+    //    maximizeButtonHover.Visibility = Visibility.Collapsed;
+    //    maximizeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void RestorePointerEntered(object sender, PointerRoutedEventArgs e) {
-        restoreButtonHover.Visibility = Visibility.Visible;
-        restoreButtonLight.Visibility = Visibility.Visible;
-    }
+    //private void RestorePointerEntered(object sender, PointerRoutedEventArgs e) {
+    //    restoreButtonHover.Visibility = Visibility.Visible;
+    //    restoreButtonLight.Visibility = Visibility.Visible;
+    //}
 
-    private void RestorePointerExited(object sender, PointerRoutedEventArgs e) {
-        restoreButtonHover.Visibility = Visibility.Collapsed;
-        restoreButtonLight.Visibility = Visibility.Collapsed;
-        restoreButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void RestorePointerExited(object sender, PointerRoutedEventArgs e) {
+    //    restoreButtonHover.Visibility = Visibility.Collapsed;
+    //    restoreButtonLight.Visibility = Visibility.Collapsed;
+    //    restoreButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void RestorePointerPressed(object sender, PointerRoutedEventArgs e) {
-        restoreButtonPressed.Visibility = Visibility.Visible;
-    }
+    //private void RestorePointerPressed(object sender, PointerRoutedEventArgs e) {
+    //    restoreButtonPressed.Visibility = Visibility.Visible;
+    //}
 
-    private void RestorePointerReleased(object sender, PointerRoutedEventArgs e) {
-        restoreButtonPressed.Visibility = Visibility.Collapsed;
-        presenter.Restore();
-    }
+    //private void RestorePointerReleased(object sender, PointerRoutedEventArgs e) {
+    //    restoreButtonPressed.Visibility = Visibility.Collapsed;
+    //    presenter.Restore();
+    //}
 
-    private void RestorePointerCanceled(object sender, PointerRoutedEventArgs e) {
-        restoreButtonHover.Visibility = Visibility.Collapsed;
-        restoreButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void RestorePointerCanceled(object sender, PointerRoutedEventArgs e) {
+    //    restoreButtonHover.Visibility = Visibility.Collapsed;
+    //    restoreButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void RestorePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
-        restoreButtonHover.Visibility = Visibility.Collapsed;
-        restoreButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void RestorePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
+    //    restoreButtonHover.Visibility = Visibility.Collapsed;
+    //    restoreButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void MinimizePointerEntered(object sender, PointerRoutedEventArgs e) {
-        minimizeButtonHover.Visibility = Visibility.Visible;
-        minimizeButtonLight.Visibility = Visibility.Visible;
-    }
+    //private void MinimizePointerEntered(object sender, PointerRoutedEventArgs e) {
+    //    minimizeButtonHover.Visibility = Visibility.Visible;
+    //    minimizeButtonLight.Visibility = Visibility.Visible;
+    //}
 
-    private void MinimizePointerExited(object sender, PointerRoutedEventArgs e) {
-        minimizeButtonHover.Visibility = Visibility.Collapsed;
-        minimizeButtonLight.Visibility = Visibility.Collapsed;
-        minimizeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void MinimizePointerExited(object sender, PointerRoutedEventArgs e) {
+    //    minimizeButtonHover.Visibility = Visibility.Collapsed;
+    //    minimizeButtonLight.Visibility = Visibility.Collapsed;
+    //    minimizeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void MinimizePointerPressed(object sender, PointerRoutedEventArgs e) {
-        minimizeButtonPressed.Visibility = Visibility.Visible;
-    }
+    //private void MinimizePointerPressed(object sender, PointerRoutedEventArgs e) {
+    //    minimizeButtonPressed.Visibility = Visibility.Visible;
+    //}
 
-    private void MinimizePointerReleased(object sender, PointerRoutedEventArgs e) {
-        minimizeButtonPressed.Visibility = Visibility.Collapsed;
-        presenter.Minimize();
-    }
+    //private void MinimizePointerReleased(object sender, PointerRoutedEventArgs e) {
+    //    minimizeButtonPressed.Visibility = Visibility.Collapsed;
+    //    presenter.Minimize();
+    //}
 
-    private void MinimizePointerCanceled(object sender, PointerRoutedEventArgs e) {
-        minimizeButtonHover.Visibility = Visibility.Collapsed;
-        minimizeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void MinimizePointerCanceled(object sender, PointerRoutedEventArgs e) {
+    //    minimizeButtonHover.Visibility = Visibility.Collapsed;
+    //    minimizeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
-    private void MinimizePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
-        minimizeButtonHover.Visibility = Visibility.Collapsed;
-        minimizeButtonPressed.Visibility = Visibility.Collapsed;
-    }
+    //private void MinimizePointerCaptureLost(object sender, PointerRoutedEventArgs e) {
+    //    minimizeButtonHover.Visibility = Visibility.Collapsed;
+    //    minimizeButtonPressed.Visibility = Visibility.Collapsed;
+    //}
 
     private void AeroSurfaceReflectionLoaded(object sender, RoutedEventArgs e) {
         double rasterizationScale = aeroSurfaceReflection.XamlRoot.RasterizationScale;
@@ -235,5 +243,9 @@ public sealed partial class MainWindow : Window {
             OffsetY = -AppWindow.Position.Y / rasterizationScale,
         };
         (aeroSurfaceReflection.RenderTransform as MatrixTransform).Matrix = transformMatrix;
+    }
+
+    private void minimizeButton_Click(object sender, RoutedEventArgs e) {
+
     }
 }

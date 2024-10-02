@@ -6,14 +6,15 @@
     xmlns:local="using:AeroLike"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:community="using:CommunityToolkit.WinUI.UI"
     mc:Ignorable="d"
-    Closed="{x:Bind Dispose}"
-    Activated="FocusChanged">
+    Activated="FocusChanged"
+    Closed="{x:Bind Dispose}">
 
-    <Grid>
+    <Grid x:Name="root">
         <Border
             x:Name="accentColor"
-            Background="{StaticResource SystemAccentColor}"
+            Background="{ThemeResource SystemAccentColor}"
             Opacity="0.2">
             <Border.OpacityTransition>
                 <ScalarTransition />
@@ -21,11 +22,6 @@
         </Border>
 
         <Grid x:Name="aeroReflections">
-            <!--<Image
-                x:Name="aeroSurfaceReflection"
-                Source="Assets/AeroReflection.png"
-                Stretch="UniformToFill"
-                Opacity="0.5" />-->
             <Image
                 x:Name="aeroSurfaceReflection"
                 Source="Assets/AeroReflection.png"
@@ -66,166 +62,75 @@
                     <ColumnDefinition Width="auto" /> <!-- caption buttons -->
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" x:Name="draggable" />
+                <Grid Grid.Column="0">
+                    <Grid>
+                        <local:LuminousTextBlock
+                            Text="{x:Bind Title}"
+                            VerticalAlignment="Center"
+                            Margin="8,0" />
+                    </Grid>
+                    <Border x:Name="draggable" />
+                </Grid>
 
                 <StackPanel
                     Grid.Column="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0,0,6,12">
-                    
-                    <Grid
-                        PointerEntered="MinimizePointerEntered"
-                        PointerPressed="MinimizePointerPressed"
-                        PointerReleased="MinimizePointerReleased"
-                        PointerExited="MinimizePointerExited"
-                        PointerCanceled="MinimizePointerCanceled"
-                        PointerCaptureLost="MinimizePointerCaptureLost">
-                        <Image
-                            x:Name="minimizeButton"
-                            Source="Assets/Windows7MinimizeButtonCut.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="minimizeButtonFocusLost"
-                            Source="Assets/Windows7MinimizeButtonFocusLostCut.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="minimizeButtonHover"
-                            Source="Assets/Windows7MinimizeButtonHoverCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            x:Name="minimizeButtonPressed"
-                            Source="Assets/Windows7MinimizeButtonPressedCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            Source="Assets/Windows7MinimizeIcon@1.25x.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="minimizeButtonLight"
-                            Source="Assets/Windows7MinimizeButtonLight.png"
-                            Stretch="None"
-                            Margin="-64"
-                            Visibility="Collapsed" />
-                    </Grid>
 
-                    <Grid
-                        x:Name="maximizeButtonGrid"
-                        Visibility="Visible"
-                        PointerEntered="MaximizePointerEntered"
-                        PointerPressed="MaximizePointerPressed"
-                        PointerReleased="MaximizePointerReleased"
-                        PointerExited="MaximizePointerExited"
-                        PointerCanceled="MaximizePointerCanceled"
-                        PointerCaptureLost="MaximizePointerCaptureLost">
-                        <Image
-                            x:Name="maximizeButton"
-                            Source="Assets/Windows7MaximizeButtonCut.png" 
-                            Stretch="None"/>
-                        <Image 
-                            x:Name="maximizeButtonFocusLost"
-                            Source="Assets/Windows7MaximizeButtonFocusLostCut.png"
-                            Stretch="None" />
-                        <Image 
-                            x:Name="maximizeButtonHover"
-                            Source="Assets/Windows7MaximizeButtonHoverCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            x:Name="maximizeButtonPressed"
-                            Source="Assets/Windows7MaximizeButtonPressedCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            Source="Assets/Windows7MaximizeIcon@1.25x.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="maximizeButtonLight"
-                            Source="Assets/Windows7MinimizeButtonLight.png"
-                            Stretch="None"
-                            Margin="-64"
-                            Visibility="Collapsed" />
-                    </Grid>
+                    <local:AeroCaptionButton
+                        x:Name="minimizeButton"
+                        Click="{x:Bind Minimize}"
+                        ButtonImage="Assets/Windows7MinimizeButtonCut.png"
+                        UnfocusedImage="Assets/Windows7MinimizeButtonFocusLostCut.png"
+                        HoverImage="Assets/Windows7MinimizeButtonHoverCut.png"
+                        PressedImage="Assets/Windows7MinimizeButtonPressedCut.png"
+                        ContentImage="Assets/Windows7MinimizeIcon@1.25x.png"
+                        LuminosityImage="Assets/Windows7MinimizeButtonLight.png" />
 
-                    <Grid
-                        x:Name="restoreButtonGrid"
+                    <local:AeroCaptionButton
+                        x:Name="maximizeButton"
+                        Click="{x:Bind Maximize}"
+                        ButtonImage="Assets/Windows7MaximizeButtonCut.png"
+                        UnfocusedImage="Assets/Windows7MaximizeButtonFocusLostCut.png"
+                        HoverImage="Assets/Windows7MaximizeButtonHoverCut.png"
+                        PressedImage="Assets/Windows7MaximizeButtonPressedCut.png"
+                        ContentImage="Assets/Windows7MaximizeIcon@1.25x.png"
+                        LuminosityImage="Assets/Windows7MinimizeButtonLight.png" />
+
+                    <local:AeroCaptionButton
+                        x:Name="restoreButton"
+                        Click="{x:Bind Restore}"
                         Visibility="Collapsed"
-                        PointerEntered="RestorePointerEntered"
-                        PointerPressed="RestorePointerPressed"
-                        PointerReleased="RestorePointerReleased"
-                        PointerExited="RestorePointerExited"
-                        PointerCanceled="RestorePointerCanceled"
-                        PointerCaptureLost="RestorePointerCaptureLost">
-                        <Image
-                            x:Name="restoreButton"
-                            Source="Assets/Windows7MaximizeButtonCut.png" 
-                            Stretch="None"/>
-                        <Image 
-                            x:Name="restoreButtonFocusLost"
-                            Source="Assets/Windows7MaximizeButtonFocusLostCut.png"
-                            Stretch="None" />
-                        <Image 
-                            x:Name="restoreButtonHover"
-                            Source="Assets/Windows7MaximizeButtonHoverCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            x:Name="restoreButtonPressed"
-                            Source="Assets/Windows7MaximizeButtonPressedCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            Source="Assets/Windows7RestoreIcon@1.25x.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="restoreButtonLight"
-                            Source="Assets/Windows7MinimizeButtonLight.png"
-                            Stretch="None"
-                            Margin="-64"
-                            Visibility="Collapsed" />
-                    </Grid>
+                        ButtonImage="Assets/Windows7MaximizeButtonCut.png"
+                        UnfocusedImage="Assets/Windows7MaximizeButtonFocusLostCut.png"
+                        HoverImage="Assets/Windows7MaximizeButtonHoverCut.png"
+                        PressedImage="Assets/Windows7MaximizeButtonPressedCut.png"
+                        ContentImage="Assets/Windows7RestoreIcon@1.25x.png"
+                        LuminosityImage="Assets/Windows7MinimizeButtonLight.png" />
 
-                    <Grid
-                        PointerEntered="CloseButtonPointerEntered"
-                        PointerPressed="CloseButtonPointerPressed"
-                        PointerReleased="ClosePointerReleased"
-                        PointerExited="CloseButtonPointerExited"
-                        PointerCanceled="ClosePointerCanceled"
-                        PointerCaptureLost="ClosePointerCaptureLost">
-                        <Image
-                            x:Name="closeButton"
-                            Source="Assets/Windows7CloseButtonCut.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="closeButtonFocusLost"
-                            Source="Assets/Windows7CloseButtonFocusLostCut.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="closeButtonHover"
-                            Source="Assets/Windows7CloseButtonHoverCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            x:Name="closeButtonPressed"
-                            Source="Assets/Windows7CloseButtonPressedCut.png"
-                            Stretch="None"
-                            Visibility="Collapsed" />
-                        <Image
-                            Source="Assets/Windows7CloseIcon@1.25x.png"
-                            Stretch="None" />
-                        <Image
-                            x:Name="closeButtonLight"
-                            Source="Assets/Windows7CloseButtonLight.png"
-                            Stretch="None"
-                            Margin="-64"
-                            Visibility="Collapsed" />
-                    </Grid>
+                    <local:AeroCaptionButton
+                        x:Name="closeButton"
+                        Click="{x:Bind Close}"
+                        ButtonImage="Assets/Windows7CloseButtonCut.png"
+                        UnfocusedImage="Assets/Windows7CloseButtonFocusLostCut.png"
+                        HoverImage="Assets/Windows7CloseButtonHoverCut.png"
+                        PressedImage="Assets/Windows7CloseButtonPressedCut.png"
+                        ContentImage="Assets/Windows7CloseIcon@1.25x.png"
+                        LuminosityImage="Assets/Windows7CloseButtonLight.png" />
                 </StackPanel>
             </Grid>
 
             <Grid Grid.Row="1" Margin="6">
-                
+                <!--<StackPanel>
+                    <local:LuminousTextBlock>Lorem ipsum dolor sit amet,</local:LuminousTextBlock>
+                    <local:LuminousTextBlock>consectetur adipisicing elit,</local:LuminousTextBlock>
+                    <local:LuminousTextBlock>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</local:LuminousTextBlock>
+                    <local:LuminousTextBlock>Ut enim ad minim veniam,</local:LuminousTextBlock>
+                    <local:LuminousTextBlock>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</local:LuminousTextBlock>
+                    <local:LuminousTextBlock>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</local:LuminousTextBlock>
+                    <local:LuminousTextBlock>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</local:LuminousTextBlock>
+                </StackPanel>-->
             </Grid>
         </Grid>
     </Grid>
