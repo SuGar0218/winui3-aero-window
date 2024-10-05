@@ -122,15 +122,26 @@
             </Grid>
 
             <Grid Grid.Row="1" Margin="6">
-                <!--<StackPanel>
-                    <local:LuminousTextBlock>Lorem ipsum dolor sit amet,</local:LuminousTextBlock>
-                    <local:LuminousTextBlock>consectetur adipisicing elit,</local:LuminousTextBlock>
-                    <local:LuminousTextBlock>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</local:LuminousTextBlock>
-                    <local:LuminousTextBlock>Ut enim ad minim veniam,</local:LuminousTextBlock>
-                    <local:LuminousTextBlock>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</local:LuminousTextBlock>
-                    <local:LuminousTextBlock>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</local:LuminousTextBlock>
-                    <local:LuminousTextBlock>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</local:LuminousTextBlock>
-                </StackPanel>-->
+                <StackPanel VerticalAlignment="Center">
+                    <local:LuminousTextBlock
+                        Text="AeroLike"
+                        HorizontalAlignment="Center"
+                        FontSize="{ThemeResource TitleLargeTextBlockFontSize}"
+                        FontWeight="Bold"/>
+                    <local:LuminousTextBlock 
+                        Text="类似 Aero 的窗口"
+                        HorizontalAlignment="Center"
+                        FontSize="{ThemeResource TitleTextBlockFontSize}" />
+                    <local:LuminousTextBlock HorizontalAlignment="Center">-----</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">Lorem ipsum dolor sit amet,</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">consectetur adipisicing elit,</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">Ut enim ad minim veniam,</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">Excepteur sint occaecat cupidatat non proident,</local:LuminousTextBlock>
+                    <local:LuminousTextBlock HorizontalAlignment="Center">sunt in culpa qui officia deserunt mollit anim id est laborum.</local:LuminousTextBlock>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
